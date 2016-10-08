@@ -6,7 +6,7 @@ public class TestServerModel extends TestCase {
 
 	public void testServerModel() {
 		ServerModel m = new ServerModel();
-		assertEquals (1, m.getNumPlayers());
+		assertEquals (0, m.getNumPlayers());
 		
 		m.joinGame();
 		assertEquals (1, m.getNumPlayers());
