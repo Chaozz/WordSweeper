@@ -101,3 +101,13 @@ alternatively, in some other IDE).
 
 I need the \*.java files (that is, the source code) not just the
 compiled \*.class byte code files.
+
+###notes
+
+-   Assume N players on a game
+    When 16N > 3*size2 increase size by 1
+  
+-   change xml
+
+
+
