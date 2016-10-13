@@ -10,5 +10,5 @@ ERROR=$?
 
 git checkout master || exit $?
 [ $ERROR -eq 0 ] || exit $ERROR
-git push github master || exit $?
-git push github gh-pages || exit $?
+git push origin master || exit $?
+git push origin gh-pages || exit $?
