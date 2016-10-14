@@ -59,11 +59,11 @@ public class Board {
         cells.put(position, cell);
     }
 
-    public Position getMultiplier(){
+    public Position getMultiplier() {
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                Position position = new Position(i,j);
-                if (cells.get(position).isMultiplier()){
+                Position position = new Position(i, j);
+                if (cells.get(position).isMultiplier()) {
                     return position;
                 }
             }
@@ -74,27 +74,27 @@ public class Board {
     /**
      * Init the unique multiplier.
      */
-    public void initMultiplier(){
-        Random r =new Random();
+    public void initMultiplier() {
+        Random r = new Random();
         cells.get(new Position(r.nextInt(size), r.nextInt(size))).setMultiplier(true);
     }
 
     /**
      * Reset the multiplier.
      */
-    public void resetMultiplier(){
-        Position p=getMultiplier();
-        if(p!=null){
+    public void resetMultiplier() {
+        Position p = getMultiplier();
+        if (p != null) {
             cells.get(p).setMultiplier(false);
         }
         initMultiplier();
     }
 
-    public String getLocalBoardContent(Position position){
+    public String getLocalBoardContent(Position position) {
         content = new StringBuffer();
-        for (int i = position.getRow(); i < 4+position.getRow(); i++) {
-            for (int j = position.getCol(); j < 4+position.getCol(); j++) {
-                Position p = new Position(i,j);
+        for (int i = position.getRow(); i < 4 + position.getRow(); i++) {
+            for (int j = position.getCol(); j < 4 + position.getCol(); j++) {
+                Position p = new Position(i, j);
                 content.append(cells.get(p).getLetter().getCharacter());
                 content.append(',');
             }
@@ -102,7 +102,7 @@ public class Board {
         return content.toString();
     }
 
-    public String getBoardContent(){
+    public String getBoardContent() {
         return content.toString();
     }
 }
