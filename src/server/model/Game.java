@@ -45,17 +45,16 @@ public class Game {
      * @param playerName player's name
      * @return success or not
      */
-    public boolean removePlayer(String playerName){
+    public boolean removePlayer(String playerName) {
         Iterator<Player> it = players.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Player player = it.next();
-            if(playerName.equals(player.getName())){
+            if (playerName.equals(player.getName())) {
                 it.remove();
-                if(players.size()==0){
-                    managingPlayerName="";
-                }
-                else if(playerName.equals(managingPlayerName)){
-                    managingPlayerName=players.get(0).getName();
+                if (players.size() == 0) {
+                    managingPlayerName = "";
+                } else if (playerName.equals(managingPlayerName)) {
+                    managingPlayerName = players.get(0).getName();
                 }
                 return true;
             }
@@ -85,5 +84,16 @@ public class Game {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Player getPlayer(String pname) {
+        Iterator<Player> it = players.iterator();
+        while (it.hasNext()) {
+            Player p = it.next();
+            if (p.getName().equals(pname))
+                return p;
+        }
+        return null;
+
     }
 }
