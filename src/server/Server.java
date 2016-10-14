@@ -55,7 +55,7 @@ public class Server {
 	/**
 	 * Register thread in server.
 	 * @param id
-	 * @param thread
+	 * @param state
 	 */
 	public static boolean register (String id, ClientState state) {
 		if (ids.containsKey(id)) { return false; }
@@ -83,5 +83,5 @@ public class Server {
 	 */
 	public static Collection<String> ids() {
 		return ids.keySet();
-	} 
+	}
 }
