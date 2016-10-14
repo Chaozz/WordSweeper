@@ -40,6 +40,7 @@ public class Board {
             for (int j = 0; j < this.size; j++) {
                 String rAlphabet = alphabet[r.nextInt(alphabet.length)];
                 content.append(rAlphabet);
+                content.append(',');
                 cells.put(new Position(i, j), new Cell(new Letter(rAlphabet, 0), false));
             }
         }
@@ -75,6 +76,7 @@ public class Board {
             for (int j = position.getCol(); j < 4+position.getCol(); j++) {
                 Position p = new Position(i,j);
                 content.append(cells.get(p).getLetter().getCharacter());
+                content.append(',');
             }
         }
         return content.toString();
