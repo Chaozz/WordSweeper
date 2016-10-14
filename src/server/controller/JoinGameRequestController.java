@@ -1,10 +1,14 @@
 package server.controller;
 
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import server.ClientState;
 import server.IProtocolHandler;
 import server.Server;
-import server.model.ServerModel;
+import server.model.*;
 import xml.Message;
+
+import java.util.List;
 
 /**
  * Controller on server to package up the current state of the model
@@ -20,16 +24,27 @@ public class JoinGameRequestController implements IProtocolHandler {
 	
 	public Message process(ClientState client, Message request) {
 		
-		model.joinGame(); 
-		
+		//model.joinGame();
+
+		Node createRequest = request.contents.getFirstChild();
+		NamedNodeMap map = createRequest.getAttributes();
+
+		String pname = map.getNamedItem("name").getNodeValue();
+		String gameId = map.getNamedItem("gameId").getNodeValue();
+		System.out.println(model.joinGame(pname,gameId));
+		Game game = model.getGame(gameId);
+		Board board = game.getBoard();
+		Position multiplier = board.getMultiplier();
+		List<Player> players = game.getPlayers();
 		String otherPlayers = "";
-		for (int i = 0; i < model.getNumPlayers(); i++) {
-			otherPlayers += "<player name='player" + i + "' score='38974' position='2,2' board='ECDRFTGOUIGERPRT'/>";
+		for (int i = 0; i < players.size(); i++) {
+			Player p = players.get(i);
+			otherPlayers += "<player name='player" + i + "' score='"+p.getScore()+"' position='"+p.getOrigin().getRow()+","+p.getOrigin().getCol()+"' board='"+board.getLocalBoardContent(p.getOrigin())+"'/>";
 		}
 		
 		// Construct message reflecting state
 		String xmlString = Message.responseHeader(request.id()) +
-				"<boardResponse gameId='hg12jhd' managingUser='player2' bonus='4,3' contents='ABCGBCJDH...HDJHJD'>" +
+				"<boardResponse gameId='"+gameId+"' managingUser='"+game.getManagingPlayerName()+"' bonus='" + multiplier.getRow() +","+multiplier.getCol()+"' contents='"+board.getBoardContent()+"'>" +
 			      otherPlayers +
 			  "</boardResponse>" +
 			"</response>";
