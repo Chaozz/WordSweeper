@@ -21,6 +21,7 @@ public class Game {
     public Game(String gameID) {
         this.gameID = gameID;
         isLocked = false;
+        board = new Board(7);
     }
 
     /**
@@ -80,5 +81,9 @@ public class Game {
 
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

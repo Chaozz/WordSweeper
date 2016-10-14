@@ -7,6 +7,7 @@ public class TestGame extends TestCase {
         Game m = new Game("g1");
         assertEquals("g1", m.getGameID());
         assertFalse(m.isLocked());
+        assertEquals(7, m.getBoard().getSize());
 
         m.addPlayer(new Player("p1"));
         assertEquals("p1", m.getPlayers().get(0).getName());
