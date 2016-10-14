@@ -2,6 +2,7 @@
 # WordSweeper
 Group project of Taurus @ CS 509
 * JavaDoc: <https://chaozz.github.io/WordSweeper/javadoc>
+
 ## Build
 You can compile WordSweeper as long as you have the [Java Development Kit (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 
 for Java 8.
