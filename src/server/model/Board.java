@@ -17,6 +17,12 @@ public class Board {
      *
      * @param size
      */
+
+    public int expandSize(int size) {
+        this.size = size;
+        return size;
+    }
+
     public Board(int size) {
         this.size = size;
         Random r = new Random();
