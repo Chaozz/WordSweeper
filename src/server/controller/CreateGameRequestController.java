@@ -21,7 +21,7 @@ public class CreateGameRequestController implements IProtocolHandler {
 
     public Message process(ClientState client, Message request) {
 
-        model.joinGame();  // HACK.
+//        model.joinGame();  // HACK.
 
         // note you can retrieve information from the request...
         Node createRequest = request.contents.getFirstChild();
