@@ -7,7 +7,7 @@ import java.util.Random;
  * Entity class of Board.
  */
 public class Board {
-    final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "k", "L", "M", "N", "O", "P", "Qu",
+    final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Qu",
             "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     public Hashtable<Position, Cell> cells = new Hashtable<Position, Cell>();
     int size;
