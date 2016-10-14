@@ -19,7 +19,7 @@ public class Player {
         this.name = name;
         this.score=0;
         Random r = new Random();
-        origin = new Position(r.nextInt(7), r.nextInt(7));
+        origin = new Position(r.nextInt(4), r.nextInt(4));
     }
 
     public int getScore() {

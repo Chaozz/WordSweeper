@@ -60,7 +60,7 @@ public class Board {
                 }
             }
         }
-        return null;
+        return new Position(0,0);//for test
     }
 
     public String getLocalBoardContent(Position position){
@@ -68,7 +68,7 @@ public class Board {
         for (int i = position.getRow(); i < 4+position.getRow(); i++) {
             for (int j = position.getCol(); j < 4+position.getCol(); j++) {
                 Position p = new Position(i,j);
-                content.append(cells.get(new Position(i,j)).getLetter().getCharacter());
+                content.append(cells.get(p).getLetter().getCharacter());
             }
         }
         return content.toString();
