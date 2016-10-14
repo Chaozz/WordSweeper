@@ -19,6 +19,21 @@ public class CreateGameRequestController implements IProtocolHandler {
         this.model = model;
     }
 
+    public String getGlobalBoardContent(Game game){
+        Board board = game.getBoard();
+        StringBuffer content=new StringBuffer();
+        content = new StringBuffer();
+        for(int i=0;i<board.getSize();i++){
+            for(int j=0;j<board.getSize();j++){
+                Position p = new Position(i,j);
+                content.append(board.getCells().get(p).getLetter().getCharacter());
+                content.append(",");
+            }
+        }
+        content.deleteCharAt(board.getSize()-1);
+        return content.toString();
+    }
+
     public Message process(ClientState client, Message request) {
 
 //        model.joinGame();  // HACK.

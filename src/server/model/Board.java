@@ -28,6 +28,7 @@ public class Board {
     public Board(int size) {
         this.size = size;
         resetBoard();
+        initMultiplier();
     }
 
     /**
@@ -40,7 +41,7 @@ public class Board {
             for (int j = 0; j < this.size; j++) {
                 String rAlphabet = alphabet[r.nextInt(alphabet.length)];
                 content.append(rAlphabet);
-                content.append(',');
+                content.append(",");
                 cells.put(new Position(i, j), new Cell(new Letter(rAlphabet, 0), false));
             }
         }
@@ -67,7 +68,26 @@ public class Board {
                 }
             }
         }
-        return new Position(0,0);//for test
+        return null;
+    }
+
+    /**
+     * Init the unique multiplier.
+     */
+    public void initMultiplier(){
+        Random r =new Random();
+        cells.get(new Position(r.nextInt(size), r.nextInt(size))).setMultiplier(true);
+    }
+
+    /**
+     * Reset the multiplier.
+     */
+    public void resetMultiplier(){
+        Position p=getMultiplier();
+        if(p!=null){
+            cells.get(p).setMultiplier(false);
+        }
+        initMultiplier();
     }
 
     public String getLocalBoardContent(Position position){

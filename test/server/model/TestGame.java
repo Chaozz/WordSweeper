@@ -15,7 +15,7 @@ public class TestGame extends TestCase {
         assertFalse(m.removePlayer("p2"));
 
         assertTrue(m.removePlayer("p1"));
-        assertEquals("", m.getManagingPlayerName());
+        assertNull(m.getManagingPlayerName());
 
         m.setLocked(true);
         assertTrue(m.isLocked());

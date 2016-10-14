@@ -10,7 +10,10 @@ public class Player {
     String name;
     int score;
 
-    /**
+    /**assertNotNull(m.getMultiplier());
+
+     m.resetMultiplier();
+     assertNotNull(m.getMultiplier());
      * constructor
      *
      * @param name

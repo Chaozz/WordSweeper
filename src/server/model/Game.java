@@ -52,7 +52,7 @@ public class Game {
             if (playerName.equals(player.getName())) {
                 it.remove();
                 if (players.size() == 0) {
-                    managingPlayerName = "";
+                    managingPlayerName = null;
                 } else if (playerName.equals(managingPlayerName)) {
                     managingPlayerName = players.get(0).getName();
                 }
