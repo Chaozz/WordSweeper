@@ -16,3 +16,5 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 5b7633c8-fe84-4fe0-bcee-cf93a4b236d8
