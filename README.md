@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.com/Chaozz/WordSweeper.svg?token=6YffMZSxSQ7Lqc6qFWCq&branch=master)](https://travis-ci.com/Chaozz/WordSweeper)
+[![codecov](https://codecov.io/gh/Chaozz/WordSweeper/branch/master/graph/badge.svg?token=lQro98gW7x)](https://codecov.io/gh/Chaozz/WordSweeper)
+
 # WordSweeper
 Group project of Taurus @ CS 509
 * JavaDoc: <https://chaozz.github.io/WordSweeper/javadoc>
