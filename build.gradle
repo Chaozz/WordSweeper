@@ -2,6 +2,7 @@ group 'Taurus'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 
@@ -27,6 +28,12 @@ build {
     copy {
         from 'wordsweeper.xsd'
         into 'build/classes/main'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
     }
 }
 
