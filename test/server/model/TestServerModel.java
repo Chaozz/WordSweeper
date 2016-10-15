@@ -15,5 +15,6 @@ public class TestServerModel extends TestCase {
         assertTrue(m.removeGame(gameID));
         assertFalse(m.removeGame(gameID));
         assertFalse(m.joinGame("p3", gameID));
+        assertEquals(0, m.getGames().size());
     }
 }

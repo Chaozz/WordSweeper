@@ -13,5 +13,8 @@ public class TestPosition extends TestCase {
 
         Position m3 = new Position(2, 4);
         assertFalse(m3.equals(m));
+
+        assertFalse(m3.equals(null));
+        assertFalse(m3.equals(new String("1")));
     }
 }
