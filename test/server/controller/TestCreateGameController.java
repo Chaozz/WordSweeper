@@ -50,10 +50,10 @@ public class TestCreateGameController extends TestCase {
 		
 		// get attributes of 'boardResponse' (firstChild) 
 		NamedNodeMap map = response.contents.getFirstChild().getAttributes();
-		assertEquals ("hg12jhd", map.getNamedItem("gameId").getNodeValue());
+		assertEquals ("b6b9e90b-6ff2-4e58-9940-f1ae38c03608", map.getNamedItem("gameId").getNodeValue());
 		
 		// player 2 joins game
-		xmlString = Message.requestHeader() + "<joinGameRequest gameId='hg12jhd' name='other'/></request>";
+		xmlString = Message.requestHeader() + "<joinGameRequest gameId='b6b9e90b-6ff2-4e58-9940-f1ae38c03608' name='other'/></request>";
 		request = new Message(xmlString);
 		
 		// get response after processing this request
@@ -62,8 +62,8 @@ public class TestCreateGameController extends TestCase {
 		
 		// get attributes of 'boardResponse' (firstChild) 
 		map = joinClient1Response.contents.getFirstChild().getAttributes();
-		assertEquals ("hg12jhd", map.getNamedItem("gameId").getNodeValue());
+		assertEquals ("b6b9e90b-6ff2-4e58-9940-f1ae38c03608", map.getNamedItem("gameId").getNodeValue());
 		map = joinClient2Response.contents.getFirstChild().getAttributes();
-		assertEquals ("hg12jhd", map.getNamedItem("gameId").getNodeValue());
+		assertEquals ("b6b9e90b-6ff2-4e58-9940-f1ae38c03608", map.getNamedItem("gameId").getNodeValue());
 	}
 }

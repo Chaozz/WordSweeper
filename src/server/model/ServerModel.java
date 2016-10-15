@@ -9,20 +9,7 @@ import java.util.UUID;
  */
 
 public class ServerModel {
-    /* -------------------- */
-    int numPlayers = 0;
-
-    public void joinGame() {
-        numPlayers++;
-    }
-
-    public int getNumPlayers() {
-        return numPlayers;
-    }
-
-    /* -------------------- */
     boolean isEmpty = true;
-
     ArrayList<Game> games = new ArrayList<Game>();
 
     public ArrayList<Game> getGames() {

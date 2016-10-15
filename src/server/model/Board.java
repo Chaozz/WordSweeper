@@ -93,6 +93,12 @@ public class Board {
         initMultiplier();
     }
 
+    /**
+     * Get the local board content with origin position
+     *
+     * @param position
+     * @return
+     */
     public String getLocalBoardContent(Position position) {
         StringBuffer localContent = new StringBuffer();
         for (int i = position.getRow(); i < 4 + position.getRow(); i++) {

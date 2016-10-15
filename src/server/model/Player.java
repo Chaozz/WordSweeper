@@ -10,17 +10,14 @@ public class Player {
     String name;
     int score;
 
-    /**assertNotNull(m.getMultiplier());
-
-     m.resetMultiplier();
-     assertNotNull(m.getMultiplier());
+    /**
      * constructor
      *
      * @param name
      */
     public Player(String name) {
         this.name = name;
-        this.score=0;
+        this.score = 0;
         Random r = new Random();
         origin = new Position(r.nextInt(4), r.nextInt(4));
     }
