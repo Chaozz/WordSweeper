@@ -19,4 +19,4 @@ cache:
 test:
     post:
         - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
-        - bash <(curl -s https://codecov.io/bash) -t 5b7633c8-fe84-4fe0-bcee-cf93a4b236d8
+        - bash <(curl -s https://codecov.io/bash) -t "5b7633c8-fe84-4fe0-bcee-cf93a4b236d8"
