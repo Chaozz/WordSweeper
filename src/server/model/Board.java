@@ -20,9 +20,10 @@ public class Board {
      * @param size
      */
 
-    public int expandSize(int size) {
+    public void resizeBoard(int size) {
         this.size = size;
-        return size;
+        resetBoard();
+        resetMultiplier();
     }
 
     public Board(int size) {
@@ -37,6 +38,7 @@ public class Board {
     public void resetBoard() {
         content = new StringBuffer();
         Random r = new Random();
+        cells.clear();
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
                 String rAlphabet = alphabet[r.nextInt(alphabet.length)];
@@ -45,6 +47,7 @@ public class Board {
                 cells.put(new Position(i, j), new Cell(new Letter(rAlphabet, 0), false));
             }
         }
+        content.deleteCharAt(content.length() - 1);
     }
 
     public int getSize() {
@@ -91,15 +94,16 @@ public class Board {
     }
 
     public String getLocalBoardContent(Position position) {
-        content = new StringBuffer();
+        StringBuffer localContent = new StringBuffer();
         for (int i = position.getRow(); i < 4 + position.getRow(); i++) {
             for (int j = position.getCol(); j < 4 + position.getCol(); j++) {
                 Position p = new Position(i, j);
-                content.append(cells.get(p).getLetter().getCharacter());
-                content.append(',');
+                localContent.append(cells.get(p).getLetter().getCharacter());
+                localContent.append(',');
             }
         }
-        return content.toString();
+        localContent.deleteCharAt(localContent.length() - 1);
+        return localContent.toString();
     }
 
     public String getBoardContent() {

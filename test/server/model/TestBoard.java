@@ -22,7 +22,6 @@ public class TestBoard extends TestCase {
         m.resetBoard();
         for (int i = 0; i < m.size; i++) {
             for (int j = 0; j < m.size; j++) {
-                System.out.print(m.getCells().get(new Position(i, j)).getLetter().getCharacter());
                 assertTrue(VALUES.contains(m.getCells().get(new Position(i, j)).getLetter().getCharacter()));
             }
         }
@@ -31,5 +30,9 @@ public class TestBoard extends TestCase {
         Cell cell = new Cell(new Letter("Qu", 0), false);
         m.setCells(p, cell);
         assertEquals(cell, m.getCells().get(p));
+
+        m.resizeBoard(8);
+        assertEquals(8, m.getSize());
+        assertEquals(m.getBoardContent().substring(0, 1), m.getCells().get(new Position(0,0)).getLetter().getCharacter());
     }
 }
