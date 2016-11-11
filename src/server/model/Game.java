@@ -11,6 +11,7 @@ public class Game {
     ArrayList<Player> players = new ArrayList<Player>();
     boolean isLocked;
     String gameID;
+    //using name to represent the managing player
     String managingPlayerName;
 
     /**
