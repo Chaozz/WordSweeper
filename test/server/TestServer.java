@@ -1,7 +1,7 @@
 package server;
 
 import junit.framework.TestCase;
-import server.controller.SampleProtocolHandler;
+import server.controller.ProtocolHandler;
 import server.model.ServerModel;
 import xml.Message;
 
@@ -16,7 +16,7 @@ public class TestServer extends TestCase {
         ServerModel serverModel = new ServerModel();
 
         // Start server and have ProtocolHandler be responsible for all XML messages.
-        Server server = new Server(new SampleProtocolHandler(serverModel), 11425);
+        Server server = new Server(new ProtocolHandler(serverModel), 11425);
         try {
             server.bind();
         } catch (IOException ioe) {

@@ -17,6 +17,10 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
+        setPlayer();
+    }
+
+    public void setPlayer() {
         this.score = 0;
         Random r = new Random();
         origin = new Position(r.nextInt(4), r.nextInt(4));

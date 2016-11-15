@@ -97,4 +97,12 @@ public class Game {
         return null;
 
     }
+
+    public void resetGame() {
+        board.resetBoard();
+        board.resetMultiplier();
+        for (Player p : players) {
+            p.setPlayer();
+        }
+    }
 }

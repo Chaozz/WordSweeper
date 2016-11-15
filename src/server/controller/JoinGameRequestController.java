@@ -31,7 +31,7 @@ public class JoinGameRequestController implements IProtocolHandler {
 
         String pname = map.getNamedItem("name").getNodeValue();
         String gameId = map.getNamedItem("gameId").getNodeValue();
-        System.out.println(model.joinGame(pname, gameId));
+//        System.out.println(model.joinGame(pname, gameId));
         Game game = model.getGame(gameId);
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
@@ -39,12 +39,15 @@ public class JoinGameRequestController implements IProtocolHandler {
         String otherPlayers = "";
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin().getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()) + "'/>";
+            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+                    .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
+            ) + "'/>";
         }
 
         // Construct message reflecting state
         String xmlString = Message.responseHeader(request.id()) +
-                "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='" + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
+                "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='"
+                + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
                 otherPlayers +
                 "</boardResponse>" +
                 "</response>";
