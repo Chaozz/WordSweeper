@@ -31,7 +31,15 @@ public class JoinGameRequestController implements IProtocolHandler {
 
         String pname = map.getNamedItem("name").getNodeValue();
         String gameId = map.getNamedItem("gameId").getNodeValue();
-        System.out.println(model.joinGame(pname, gameId));
+
+        // If fail to join the Game
+        if (!model.joinGame(pname, gameId)) {
+            String xmlString = Message.responseHeader(request.id(), "Game is locked!") +
+                    "<joinGameResponse gameId='" + gameId + "'/>" +
+                    "</response>";
+            return new Message(xmlString);
+        }
+        // otherwise
         Game game = model.getGame(gameId);
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
