@@ -23,6 +23,12 @@ public class LockGameRequestController {
         Node createRequest = request.contents.getFirstChild();
         NamedNodeMap map = createRequest.getAttributes();
         String gameId = map.getNamedItem("gameId").getNodeValue();
-        return new Message("");
+        model.getGame(gameId).setLocked(true);
+
+        String xmlString = Message.responseHeader(request.id()) +
+                "<lockGameResponse gameId='" + gameId + "'/>" +
+                "</response>";
+
+        return new Message(xmlString);
     }
 }
