@@ -30,7 +30,7 @@ public class ResetGameRequestController implements IProtocolHandler{
                 "<resetGameResponse gameId='" + gameId + "'</resetGameResponse>" +
                 "</response>";
         Message resetResponse = new Message(xmlStringReset);
-//        String xmlStringBoardResponse = Message.responseHeader(); Need to implement boardResponse
+//        String xmlStringBoardResponse = Message.responseHeader(); Need to implement boardResponse, how Server.ids work
         return resetResponse;
     }
 }
