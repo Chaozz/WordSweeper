@@ -38,7 +38,9 @@ public class ProtocolHandler implements IShutdownHandler {
 			return new JoinGameRequestController(model).process(st, request);
 		}else if(type.equals("resetGameRequest")){
 			return new ResetGameRequestController(model).process(st,request);
-		}
+		}else if(type.equals("lockGameRequest")){
+            return new LockGameRequestController(model).process(st, request);
+        }
 		
 		// unknown? no idea what to do
 		System.err.println("Unable to handle message:" + request);
