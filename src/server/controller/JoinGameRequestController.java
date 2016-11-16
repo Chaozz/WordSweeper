@@ -45,14 +45,18 @@ public class JoinGameRequestController implements IProtocolHandler {
         Position multiplier = board.getMultiplier();
         List<Player> players = game.getPlayers();
         String otherPlayers = "";
+        game.addClient(client);
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin().getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()) + "'/>";
+            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+                    .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
+            ) + "'/>";
         }
 
         // Construct message reflecting state
         String xmlString = Message.responseHeader(request.id()) +
-                "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='" + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
+                "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='"
+                + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
                 otherPlayers +
                 "</boardResponse>" +
                 "</response>";
@@ -62,7 +66,7 @@ public class JoinGameRequestController implements IProtocolHandler {
         // all other players on game (excepting this particular client) need to be told of this
         // same response. Note this is inefficient and should be replaced by more elegant functioning
         // hint: rely on your game to store player names...
-        for (String id : Server.ids()) {
+        for (String id : game.getClients()) {
             if (!id.equals(client.id())) {
                 Server.getState(id).sendMessage(message);
             }

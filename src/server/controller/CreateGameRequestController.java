@@ -34,6 +34,9 @@ public class CreateGameRequestController implements IProtocolHandler {
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
 
+        //add id to game
+        game.addClient(client);
+
 
         // Construct message reflecting state
         String xmlString = Message.responseHeader(request.id()) +

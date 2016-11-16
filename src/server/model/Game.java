@@ -1,6 +1,10 @@
 package server.model;
 
+import server.ClientState;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 /**
@@ -13,6 +17,7 @@ public class Game {
     String gameID;
     //using name to represent the managing player
     String managingPlayerName;
+    ArrayList<String> clients = new ArrayList<>();
 
     /**
      * constructor
@@ -104,5 +109,17 @@ public class Game {
         for (Player p : players) {
             p.setPlayer();
         }
+    }
+
+    public void addClient(ClientState c) {
+        clients.add(c.id());
+    }
+
+    public void removeClient(ClientState c) {
+        clients.remove(c.id());
+    }
+
+    public Collection<String> getClients() {
+        return clients;
     }
 }

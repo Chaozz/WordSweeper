@@ -4,14 +4,16 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import server.ClientState;
 import server.IProtocolHandler;
-import server.model.Game;
-import server.model.ServerModel;
+import server.Server;
+import server.model.*;
 import xml.Message;
+
+import java.util.List;
 
 /**
  * Created by tianhao on 11/14/16.
  */
-public class ResetGameRequestController implements IProtocolHandler{
+public class ResetGameRequestController implements IProtocolHandler {
     ServerModel model;
 
     public ResetGameRequestController(ServerModel model) {
@@ -26,11 +28,30 @@ public class ResetGameRequestController implements IProtocolHandler{
         String gameId = map.getNamedItem("gameId").getNodeValue();
         Game game = model.getGame(gameId);
         game.resetGame();
+        Board board = game.getBoard();
+        Position multiplier = board.getMultiplier();
+        List<Player> players = game.getPlayers();
+        String otherPlayers = "";
+        for (int i = 0; i < players.size(); i++) {
+            Player p = players.get(i);
+            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+                    .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
+            ) + "'/>";
+        }
         String xmlStringReset = Message.responseHeader(request.id()) +
                 "<resetGameResponse gameId='" + gameId + "'</resetGameResponse>" +
                 "</response>";
         Message resetResponse = new Message(xmlStringReset);
-//        String xmlStringBoardResponse = Message.responseHeader(); Need to implement boardResponse, how Server.ids work
+        String xmlStringBoardResponse = Message.responseHeader(request.id()) +
+                "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='"
+                + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
+                otherPlayers +
+                "</boardResponse>" +
+                "</response>";
+        Message boardResponse = new Message(xmlStringBoardResponse);
+        for (String id : game.getClients()) {
+            Server.getState(id).sendMessage(boardResponse);
+        }
         return resetResponse;
     }
 }
