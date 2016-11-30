@@ -27,8 +27,8 @@ public class TestJoinGameController extends TestCase {
             fail("unable to configure protocol");
         }
 
-        client1 = new MockClient();
-        client2 = new MockClient();
+        client1 = new MockClient("c1");
+        client2 = new MockClient("c2");
         Server.register("c1", client1);
         Server.register("c2", client2);
         model = new ServerModel();
@@ -63,6 +63,7 @@ public class TestJoinGameController extends TestCase {
         Message joinClient1Response = client1.getAndRemoveMessage();
 
         // get attributes of 'boardResponse' (firstChild)
+//        System.out.println(joinClient1Response.contents);
         map = joinClient1Response.contents.getFirstChild().getAttributes();
         assertEquals("b6b9e90b-6ff2-4e58-9940-f1ae38c03608", map.getNamedItem("gameId").getNodeValue());
         assertEquals(model.getGame("b6b9e90b-6ff2-4e58-9940-f1ae38c03608").getBoard().getBoardContent(),
