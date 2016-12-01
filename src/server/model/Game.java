@@ -17,6 +17,7 @@ public class Game {
     String gameID;
     //using name to represent the managing player
     String managingPlayerName;
+    String managingPlayerID;
     ArrayList<String> clients = new ArrayList<>();
 
     /**
@@ -36,12 +37,14 @@ public class Game {
      * @param player
      * @return success or not
      */
-    public boolean addPlayer(Player player) {
+    public boolean addPlayer(Player player, ClientState c) {
         if (isLocked) return false;
         if (players.size() == 0) {
             managingPlayerName = player.getName();
+            managingPlayerID = c.id();
         }
         players.add(player);
+        addClient(c);
         return true;
     }
 

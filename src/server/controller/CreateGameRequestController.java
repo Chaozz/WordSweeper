@@ -27,7 +27,7 @@ public class CreateGameRequestController implements IProtocolHandler {
         NamedNodeMap map = createRequest.getAttributes();
 
         String pname = map.getNamedItem("name").getNodeValue();
-        String gameID = model.createGame(pname);
+        String gameID = model.createGame(pname,client);
         Game game = model.getGame(gameID);
         Player me = game.getPlayer(pname);
         Position origin = me.getOrigin();

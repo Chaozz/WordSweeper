@@ -1,5 +1,7 @@
 package server.model;
 
+import server.ClientState;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
@@ -22,7 +24,7 @@ public class ServerModel {
      * @param playerName
      * @return the game ID
      */
-    public String createGame(String playerName) {
+    public String createGame(String playerName, ClientState c) {
         Player creator = new Player(playerName);
         String gameID;
         if (isEmpty) {
@@ -32,7 +34,7 @@ public class ServerModel {
             gameID = UUID.randomUUID().toString();
         }
         Game game = new Game(gameID);
-        game.addPlayer(creator);
+        game.addPlayer(creator, c);
         games.add(game);
         return gameID;
     }
@@ -44,12 +46,12 @@ public class ServerModel {
      * @param gameID
      * @return success or not
      */
-    public boolean joinGame(String playerName, String gameID) {
+    public boolean joinGame(String playerName, ClientState c, String gameID) {
         Player player = new Player(playerName);
         Game game = getGame(gameID);
         if (game == null) return false;
         if (game.isLocked()) return false;
-        game.addPlayer(player);
+        game.addPlayer(player, c);
         return true;
     }
 

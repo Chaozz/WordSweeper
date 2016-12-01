@@ -33,7 +33,7 @@ public class JoinGameRequestController implements IProtocolHandler {
         String gameId = map.getNamedItem("gameId").getNodeValue();
 
         // If fail to join the Game
-        if (!model.joinGame(pname, gameId)) {
+        if (!model.joinGame(pname, client, gameId)) {
             String xmlString = Message.responseHeader(request.id(), "Game is locked!") +
                     "<joinGameResponse gameId='" + gameId + "'/>" +
                     "</response>";
@@ -45,7 +45,8 @@ public class JoinGameRequestController implements IProtocolHandler {
         Position multiplier = board.getMultiplier();
         List<Player> players = game.getPlayers();
         String otherPlayers = "";
-        game.addClient(client);
+        // Merge addClient step to joinGame
+//        game.addClient(client);
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
             otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
