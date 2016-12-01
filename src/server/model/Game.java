@@ -1,10 +1,11 @@
+// TODO: map id and name, modify managingplayerID when managerPlayer leaves the Game,
+// TODO: verify managingPlayer by id
 package server.model;
 
 import server.ClientState;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Iterator;
 
 /**
