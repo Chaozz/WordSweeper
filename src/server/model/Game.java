@@ -1,11 +1,10 @@
-// TODO: map id and name, modify managingplayerID when managerPlayer leaves the Game,
-// TODO: verify managingPlayer by id
 package server.model;
 
 import server.ClientState;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -19,7 +18,7 @@ public class Game {
     //using name to represent the managing player
     String managingPlayerName;
     String managingPlayerID;
-    ArrayList<String> clients = new ArrayList<>();
+    HashMap<String,String> clients = new HashMap<>();
 
     /**
      * constructor
@@ -45,7 +44,7 @@ public class Game {
             managingPlayerID = c.id();
         }
         players.add(player);
-        addClient(c);
+        addClient(player.getName(),c);
         return true;
     }
 
@@ -63,9 +62,12 @@ public class Game {
                 it.remove();
                 if (players.size() == 0) {
                     managingPlayerName = null;
+                    managingPlayerID=null;
                 } else if (playerName.equals(managingPlayerName)) {
                     managingPlayerName = players.get(0).getName();
+                    managingPlayerID=clients.get(players.get(0).getName());
                 }
+                clients.remove(player.getName());
                 return true;
             }
         }
@@ -115,15 +117,15 @@ public class Game {
         }
     }
 
-    public void addClient(ClientState c) {
-        clients.add(c.id());
+    public void addClient(String playerName, ClientState c) {
+        clients.put(playerName,c.id());
     }
 
-    public void removeClient(ClientState c) {
-        clients.remove(c.id());
+    public void removeClient(String playerName) {
+        clients.remove(playerName);
     }
 
     public Collection<String> getClients() {
-        return clients;
+        return clients.values();
     }
 }
