@@ -11,6 +11,9 @@ import util.WordTable;
 import xml.Message;
 
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by tianhao on 11/14/16.
@@ -45,8 +48,19 @@ public class FindWordRequestController implements IProtocolHandler {
                 foundCells.put(position, currentCells.get(position));
             }
 
-            //todo calculate score, change Game object
             int score = 0;
+            int N = 0;
+            for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
+                int M = SharedSpaceHandler.numOfSharedPlayers(game, entry.getKey());
+                if (entry.getValue().isMultiplier()) {
+                    score += entry.getValue().getLetter().getPoint() * Math.pow(2, M) * 10;
+                } else {
+                    score += entry.getValue().getLetter().getPoint() * Math.pow(2, M);
+                }
+                N++;
+            }
+            score = (int) (score * Math.pow(2, N));
+            //todo change Game object
 
 
             String xmlString = Message.responseHeader(request.id()) + "<findWordResponse> gameId = " +
