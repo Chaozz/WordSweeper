@@ -3,6 +3,7 @@ package server.model;
 import util.LetterPoints;
 
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -47,7 +48,7 @@ public class Board {
                 content.append(rAlphabet);
                 content.append(",");
                 int point = 0;
-                if (rAlphabet.equals("Qu")) point=13;
+                if (rAlphabet.equals("Qu")) point = 13;
                 else point = LetterPoints.getPoint(rAlphabet.charAt(0));
                 cells.put(new Position(i, j), new Cell(new Letter(rAlphabet, point), false));
             }
@@ -119,5 +120,27 @@ public class Board {
 
     public String getBoardContent() {
         return content.toString();
+    }
+
+    public Cell newCell() {
+        Random r = new Random();
+        String rAlphabet = alphabet[r.nextInt(alphabet.length)];
+        int point = 0;
+        if (rAlphabet.equals("Qu")) point = 13;
+        else point = LetterPoints.getPoint(rAlphabet.charAt(0));
+        return new Cell(new Letter(rAlphabet, point), false);
+    }
+
+    public void changeBoardAfterSweeper(Hashtable<Position, Cell> foundCells) {
+        for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
+            Position p = entry.getKey();
+            for (int i = p.getRow() + 1; i < size; i++) {
+                Cell c = cells.get(new Position(i, p.getCol()));
+                cells.put(new Position(i - 1, p.getCol()), c);
+            }
+            cells.put(new Position(size - 1, p.getCol()), newCell());
+        }
+
+
     }
 }

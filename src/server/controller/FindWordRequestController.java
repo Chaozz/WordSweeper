@@ -49,10 +49,12 @@ public class FindWordRequestController implements IProtocolHandler {
             }
 
             int score = 0;
+            boolean isMultiplierUsed = false;
             int N = 0;
             for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
                 int M = SharedSpaceHandler.numOfSharedPlayers(game, entry.getKey());
                 if (entry.getValue().isMultiplier()) {
+                    isMultiplierUsed = true;
                     score += entry.getValue().getLetter().getPoint() * Math.pow(2, M) * 10;
                 } else {
                     score += entry.getValue().getLetter().getPoint() * Math.pow(2, M);
@@ -60,8 +62,9 @@ public class FindWordRequestController implements IProtocolHandler {
                 N++;
             }
             score = (int) (score * Math.pow(2, N));
-            //todo change Game object
 
+            board.changeBoardAfterSweeper(foundCells);
+            if (isMultiplierUsed) board.resetMultiplier();
 
             String xmlString = Message.responseHeader(request.id()) + "<findWordResponse> gameId = " +
                     "'" + gameId + "' name=" + pname + "' score = " + score + " /> </response>";
