@@ -68,7 +68,7 @@ public class FindWordRequestController implements IProtocolHandler {
             board.changeBoardAfterSweeper(foundCells);
             if (isMultiplierUsed) board.resetMultiplier();
 
-            String xmlString = Message.responseHeader(request.id()) + "<findWordResponse> gameId = " +
+            String xmlString = Message.responseHeader(request.id()) + "<findWordResponse gameId = " +
                     "'" + gameId + "' name=" + pname + "' score = " + score + " /> </response>";
             String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
             Message boardResponseMsg = new Message(boardResponseXml);
@@ -77,7 +77,7 @@ public class FindWordRequestController implements IProtocolHandler {
             }
             return new Message(xmlString);
         } else {
-            String xmlString = Message.responseHeader(request.id(), "Wrong Word!") + "<findWordResponse> gameId = " +
+            String xmlString = Message.responseHeader(request.id(), "Wrong Word!") + "<findWordResponse gameId = " +
                     "'" + gameId + "' name=" + pname + "' score = 0 /> </response>";
             String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
             Message boardResponseMsg = new Message(boardResponseXml);

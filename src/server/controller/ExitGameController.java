@@ -32,7 +32,7 @@ public class ExitGameController implements IProtocolHandler {
         if (game.getPlayers().isEmpty()) {
             model.removeGame(gameId);
         }
-        String xml = Message.responseHeader(request.id()) + "<exitGameResponse gameId=" + gameId + " /> </response>";
+        String xml = Message.responseHeader(request.id()) + "<exitGameResponse gameId='" + gameId + "' /> </response>";
         String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
         Message boardResponseMsg = new Message(boardResponseXml);
         for (String id : game.getClients()) {
