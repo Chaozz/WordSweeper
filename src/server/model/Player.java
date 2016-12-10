@@ -38,6 +38,10 @@ public class Player {
         return origin;
     }
 
+    public void setOrigin(Position origin) {
+        this.origin = origin;
+    }
+
     public String getName() {
         return name;
     }
