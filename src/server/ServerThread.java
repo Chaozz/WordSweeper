@@ -63,7 +63,7 @@ public class ServerThread extends Thread implements ClientState {
 		while ((m = Parser.extractRequest(fromClient)) != null) {
 			
 			Message response = handler.process(this, m);
-			if (!sendMessage(response)) {
+			if (!sendMessage(response)&&response!=null) {
 				break;
 			}
 		}

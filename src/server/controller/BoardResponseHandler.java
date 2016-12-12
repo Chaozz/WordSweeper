@@ -12,14 +12,14 @@ import java.util.List;
  * Created by tianhao on 12/9/16.
  */
 public class BoardResponseHandler {
-    public static String getBoardResponse(Game game, String gameId, String requestId){
+    public static String getBoardResponse(Game game, String gameId, String requestId) {
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
         List<Player> players = game.getPlayers();
         String otherPlayers = "";
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+            otherPlayers += "<player name='" + p.getName() + "' score='" + p.getScore() + "' position='" + p.getOrigin()
                     .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
             ) + "'/>";
         }

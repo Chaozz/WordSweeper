@@ -35,9 +35,8 @@ public class RepositionBoardRequestController implements IProtocolHandler {
         int size = game.getBoard().getSize();
         int newRow = player.getOrigin().getRow() + rowChange;
         int newCol = player.getOrigin().getCol() + colChange;
-        if (newRow >= 0 && newRow <= size - 4 && newCol >= 0 && newRow <= size - 4) {
+        if (newRow >= 0 && newRow <= size - 4 && newCol >= 0 && newCol <= size - 4) {
             player.setOrigin(new Position(newRow, newCol));
-
             String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
             Message boardResponseMsg = new Message(boardResponseXml);
             for (String id : game.getClients()) {
@@ -46,8 +45,6 @@ public class RepositionBoardRequestController implements IProtocolHandler {
             }
             return boardResponseMsg;
         }
-
-
         return null;
     }
 }
