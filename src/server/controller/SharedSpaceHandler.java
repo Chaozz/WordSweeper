@@ -18,7 +18,7 @@ public class SharedSpaceHandler {
             Position origin = p.getOrigin();
             for (int i = origin.getRow(); i < origin.getRow() + 4; i++) {
                 for (int j = origin.getCol(); j < origin.getCol() + 4; j++) {
-                    Position temp = new Position(i, j);
+                    Position temp = new Position(j, i);
                     if (sharedNum.containsKey(temp)) {
                         sharedNum.put(temp, sharedNum.get(temp) + 1);
                     } else {

@@ -20,13 +20,13 @@ public class BoardResponseHandler {
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
             otherPlayers += "<player name='" + p.getName() + "' score='" + p.getScore() + "' position='" + p.getOrigin()
-                    .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
+                    .getCol() + "," + p.getOrigin().getRow() + "' board='" + board.getLocalBoardContent(p.getOrigin()
             ) + "'/>";
         }
 
         String xmlString = Message.responseHeader(requestId) +
                 "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='"
-                + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
+                + multiplier.getCol() + "," + multiplier.getRow() + "' contents='" + board.getBoardContent() + "'>" +
                 otherPlayers +
                 "</boardResponse>" +
                 "</response>";

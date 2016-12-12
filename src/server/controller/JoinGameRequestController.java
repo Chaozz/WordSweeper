@@ -50,14 +50,14 @@ public class JoinGameRequestController implements IProtocolHandler {
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
             otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
-                    .getRow() + "," + p.getOrigin().getCol() + "' board='" + board.getLocalBoardContent(p.getOrigin()
+                    .getCol() + "," + p.getOrigin().getRow() + "' board='" + board.getLocalBoardContent(p.getOrigin()
             ) + "'/>";
         }
 
         // Construct message reflecting state
         String xmlString = Message.responseHeader(request.id()) +
                 "<boardResponse gameId='" + gameId + "' managingUser='" + game.getManagingPlayerName() + "' bonus='"
-                + multiplier.getRow() + "," + multiplier.getCol() + "' contents='" + board.getBoardContent() + "'>" +
+                + multiplier.getCol() + "," + multiplier.getRow() + "' contents='" + board.getBoardContent() + "'>" +
                 otherPlayers +
                 "</boardResponse>" +
                 "</response>";

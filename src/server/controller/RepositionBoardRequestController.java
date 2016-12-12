@@ -36,7 +36,7 @@ public class RepositionBoardRequestController implements IProtocolHandler {
         int newRow = player.getOrigin().getRow() + rowChange;
         int newCol = player.getOrigin().getCol() + colChange;
         if (newRow >= 0 && newRow <= size - 4 && newCol >= 0 && newCol <= size - 4) {
-            player.setOrigin(new Position(newRow, newCol));
+            player.setOrigin(new Position(newCol, newRow));
             String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
             Message boardResponseMsg = new Message(boardResponseXml);
             for (String id : game.getClients()) {

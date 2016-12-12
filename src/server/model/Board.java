@@ -109,7 +109,7 @@ public class Board {
         StringBuffer localContent = new StringBuffer();
         for (int i = position.getRow(); i < 4 + position.getRow(); i++) {
             for (int j = position.getCol(); j < 4 + position.getCol(); j++) {
-                Position p = new Position(i, j);
+                Position p = new Position(j, i);
                 localContent.append(cells.get(p).getLetter().getCharacter());
                 localContent.append(',');
             }
@@ -135,10 +135,10 @@ public class Board {
         for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
             Position p = entry.getKey();
             for (int i = p.getRow() + 1; i < size; i++) {
-                Cell c = cells.get(new Position(i, p.getCol()));
-                cells.put(new Position(i - 1, p.getCol()), c);
+                Cell c = cells.get(new Position(p.getCol(), i));
+                cells.put(new Position(p.getCol(), i-1 ), c);
             }
-            cells.put(new Position(size - 1, p.getCol()), newCell());
+            cells.put(new Position(p.getCol(), size-1), newCell());
         }
 
 
