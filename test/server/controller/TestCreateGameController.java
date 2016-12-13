@@ -45,7 +45,6 @@ public class TestCreateGameController extends TestCase {
         // make sure model is well-represented
         assertTrue(response.success());
 
-        // get attributes of 'boardResponse' (firstChild)
         NamedNodeMap map = response.contents.getFirstChild().getAttributes();
         String gameID=map.getNamedItem("gameId").getNodeValue();
         assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());
