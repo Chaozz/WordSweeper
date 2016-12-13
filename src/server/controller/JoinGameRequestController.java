@@ -49,7 +49,7 @@ public class JoinGameRequestController implements IProtocolHandler {
 //        game.addClient(client);
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            otherPlayers += "<player name='player" + i + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+            otherPlayers += "<player name='" + p.getName() + "' score='" + p.getScore() + "' position='" + p.getOrigin()
                     .getCol() + "," + p.getOrigin().getRow() + "' board='" + board.getLocalBoardContent(p.getOrigin()
             ) + "'/>";
         }

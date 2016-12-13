@@ -43,6 +43,7 @@ public class RepositionBoardRequestController implements IProtocolHandler {
                 if (!id.equals(state.id()))
                     Server.getState(id).sendMessage(boardResponseMsg);
             }
+            System.out.println(boardResponseXml);
             return boardResponseMsg;
         }
         return null;
