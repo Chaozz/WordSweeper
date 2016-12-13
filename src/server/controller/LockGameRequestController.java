@@ -23,6 +23,9 @@ public class LockGameRequestController {
         Node createRequest = request.contents.getFirstChild();
         NamedNodeMap map = createRequest.getAttributes();
         String gameId = map.getNamedItem("gameId").getNodeValue();
+        if(!model.getGame(gameId).getManagingPlayerID().equals(client.id())){
+            return null;
+        }
         model.getGame(gameId).setLocked(true);
 
         String xmlString = Message.responseHeader(request.id()) +

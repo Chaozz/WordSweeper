@@ -17,6 +17,7 @@ public class Game {
     String gameID;
     //using name to represent the managing player
     String managingPlayerName;
+
     String managingPlayerID;
     HashMap<String,String> clients = new HashMap<>();
 
@@ -67,7 +68,7 @@ public class Game {
                     managingPlayerName = players.get(0).getName();
                     managingPlayerID=clients.get(players.get(0).getName());
                 }
-                clients.remove(player.getName());
+                removeClient(player.getName());
                 return true;
             }
         }
@@ -127,5 +128,9 @@ public class Game {
 
     public Collection<String> getClients() {
         return clients.values();
+    }
+
+    public String getManagingPlayerID() {
+        return managingPlayerID;
     }
 }

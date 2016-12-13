@@ -24,9 +24,11 @@ public class ResetGameRequestController implements IProtocolHandler {
     public Message process(ClientState state, Message request) {
         Node resetGameRequest = request.contents.getFirstChild();
         NamedNodeMap map = resetGameRequest.getAttributes();
-
         String gameId = map.getNamedItem("gameId").getNodeValue();
         Game game = model.getGame(gameId);
+        if(!game.getManagingPlayerID().equals(state.id())){
+            return null;
+        }
         game.resetGame();
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
