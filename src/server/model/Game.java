@@ -46,6 +46,10 @@ public class Game {
         }
         players.add(player);
         addClient(player.getName(),c);
+        //if player size*16 >=letters , increase the board
+        if(players.size()*16>=board.getSize()*board.getSize()){
+            board.resizeBoard(board.getSize()+1);
+        }
         return true;
     }
 

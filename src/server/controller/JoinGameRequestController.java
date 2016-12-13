@@ -24,8 +24,6 @@ public class JoinGameRequestController implements IProtocolHandler {
 
     public Message process(ClientState client, Message request) {
 
-        //model.joinGame();
-
         Node joinRequest = request.contents.getFirstChild();
         NamedNodeMap map = joinRequest.getAttributes();
 
