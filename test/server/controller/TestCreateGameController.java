@@ -24,7 +24,7 @@ public class TestCreateGameController extends TestCase {
             fail("unable to configure protocol");
         }
 
-        client1 = new MockClient();
+        client1 = new MockClient("c1");
         Server.register("c1", client1);
         model = new ServerModel();
     }
