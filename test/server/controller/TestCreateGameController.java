@@ -50,8 +50,9 @@ public class TestCreateGameController extends TestCase {
 
         // get attributes of 'boardResponse' (firstChild)
         NamedNodeMap map = response.contents.getFirstChild().getAttributes();
-        assertEquals("b6b9e90b-6ff2-4e58-9940-f1ae38c03608", map.getNamedItem("gameId").getNodeValue());
-        assertEquals(model.getGame("b6b9e90b-6ff2-4e58-9940-f1ae38c03608").getBoard().getBoardContent(),
+        String gameID=map.getNamedItem("gameId").getNodeValue();
+        assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());
+        assertEquals(model.getGame(gameID).getBoard().getBoardContent(),
                 map.getNamedItem("contents").getNodeValue());
     }
 }

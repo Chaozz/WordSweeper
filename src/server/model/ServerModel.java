@@ -28,10 +28,10 @@ public class ServerModel {
         Player creator = new Player(playerName);
         String gameID;
         if (isEmpty) {
-            gameID = "b6b9e90b-6ff2-4e58-9940-f1ae38c03608";
+            gameID = UUID.randomUUID().toString().substring(0,4);
             isEmpty = false;
         } else {
-            gameID = UUID.randomUUID().toString();
+            gameID = UUID.randomUUID().toString().substring(0,4);
         }
         Game game = new Game(gameID);
         game.addPlayer(creator, c);
