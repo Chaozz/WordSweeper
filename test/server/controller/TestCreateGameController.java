@@ -4,8 +4,6 @@ import org.w3c.dom.NamedNodeMap;
 
 import server.MockClient;
 import server.Server;
-import server.controller.CreateGameRequestController;
-import server.controller.JoinGameRequestController;
 import server.model.ServerModel;
 import xml.Message;
 import junit.framework.TestCase;
@@ -17,7 +15,6 @@ public class TestCreateGameController extends TestCase {
      * Become a placeholder for responses sent to the (only connected) client.
      */
     MockClient client1;
-    MockClient client2;
 
     ServerModel model;
 

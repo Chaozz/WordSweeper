@@ -4,14 +4,12 @@ import org.w3c.dom.NamedNodeMap;
 
 import server.MockClient;
 import server.Server;
-import server.controller.CreateGameRequestController;
-import server.controller.JoinGameRequestController;
 import server.model.ServerModel;
 import xml.Message;
 import junit.framework.TestCase;
 
 // validate that server generates appropriate modelResponse for each modelRequest.
-public class TestJoinGameController extends TestCase {
+public class TestExitGameController extends TestCase {
 
     /**
      * Become a placeholder for responses sent to the (only connected) client.
@@ -27,10 +25,8 @@ public class TestJoinGameController extends TestCase {
             fail("unable to configure protocol");
         }
 
-        client1 = new MockClient("c1");
-        client2 = new MockClient("c2");
+        client1 = new MockClient();
         Server.register("c1", client1);
-        Server.register("c2", client2);
         model = new ServerModel();
     }
 
@@ -47,30 +43,14 @@ public class TestJoinGameController extends TestCase {
         // get response after processing this request
         Message response = new CreateGameRequestController(model).process(client1, request);
 
-        // make sure model is well-represented
-        assertTrue(response.success());
-
-        // get attributes of 'boardResponse' (firstChild)
         NamedNodeMap map = response.contents.getFirstChild().getAttributes();
         String gameID=map.getNamedItem("gameId").getNodeValue();
-        assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());
 
-        // player 2 joins game
-        xmlString = Message.requestHeader() + "<joinGameRequest gameId='"+gameID+"' name='other'/></request>";
+        xmlString = Message.requestHeader() + "<exitGameRequest gameId='"+gameID+"' name='other'/></request>";
         request = new Message(xmlString);
-
-        // get response after processing this request
-        Message joinClient2Response = new JoinGameRequestController(model).process(client2, request);
-        Message joinClient1Response = client1.getAndRemoveMessage();
-
-        // get attributes of 'boardResponse' (firstChild)
-        map = joinClient1Response.contents.getFirstChild().getAttributes();
+        Message exitClient1Response = new ExitGameController(model).process(client1, request);
+        assertTrue(exitClient1Response.success());
+        map = exitClient1Response.contents.getFirstChild().getAttributes();
         assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());
-        assertEquals(model.getGame(gameID).getBoard().getBoardContent(),
-                map.getNamedItem("contents").getNodeValue());
-        map = joinClient2Response.contents.getFirstChild().getAttributes();
-        assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());
-        assertEquals(model.getGame(gameID).getBoard().getBoardContent(),
-                map.getNamedItem("contents").getNodeValue());
     }
 }
