@@ -153,7 +153,6 @@ public class ServerApplication extends JFrame {
                 colorBoard[i][j] = 0;
             }
         }
-        colorBoard[multi.getCol()][multi.getRow()]+=6;
         for (int i = 0; i < playerNum; i++) {
             int col = pos[i][0], row = pos[i][1];
             for (int j = 0; j < 4; j++) {
@@ -180,6 +179,7 @@ public class ServerApplication extends JFrame {
                 int red = (255 - 5 * colorBoard[column][row]), green = (255 - 5 *
                         colorBoard[column][row]) * multiBoard[column][row],
                         blue = 255 * multiBoard[column][row];
+                c.setBackground(new java.awt.Color(red, green, blue));
                 c.setBackground(new java.awt.Color(red, green, blue));
                 return super.getTableCellRendererComponent(table, value,
                         isSelected, hasFocus, row, column);
