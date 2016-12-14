@@ -48,7 +48,7 @@ public class TestExitGameController extends TestCase {
 
         xmlString = Message.requestHeader() + "<exitGameRequest gameId='"+gameID+"' name='other'/></request>";
         request = new Message(xmlString);
-        Message exitClient1Response = new ExitGameController(model).process(client1, request);
+        Message exitClient1Response = new ProtocolHandler(model).process(client1, request);
         assertTrue(exitClient1Response.success());
         map = exitClient1Response.contents.getFirstChild().getAttributes();
         assertEquals(gameID, map.getNamedItem("gameId").getNodeValue());

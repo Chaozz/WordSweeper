@@ -39,6 +39,7 @@ public class JoinGameRequestController implements IProtocolHandler {
         }
         // otherwise
         Game game = model.getGame(gameId);
+        game.resetGame();
         Board board = game.getBoard();
         Position multiplier = board.getMultiplier();
         List<Player> players = game.getPlayers();

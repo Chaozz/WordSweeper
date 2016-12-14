@@ -58,7 +58,7 @@ public class TestFindWordRequestController extends TestCase {
                 "<cell letter=\"E\" position=\"1,2\"/>" +
                 "<cell letter=\"G\" position=\"1,3\"/></findWordRequest></request>";
         request = new Message(xmlString);
-        response = new FindWordRequestController(model).process(client1, request);
+        response = new ProtocolHandler(model).process(client1, request);
         assertTrue(response.success());
 
     }

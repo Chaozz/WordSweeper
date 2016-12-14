@@ -9,7 +9,7 @@ import xml.Message;
 import junit.framework.TestCase;
 
 // validate that server generates appropriate modelResponse for each modelRequest.
-public class TestResetGameRequestController extends TestCase {
+public class TestRepositionBoardRequestController extends TestCase {
 
     /**
      * Become a placeholder for responses sent to the (only connected) client.
@@ -31,6 +31,7 @@ public class TestResetGameRequestController extends TestCase {
 
     protected void tearDown() {
         Server.unregister("c1");
+        Server.unregister("c2");
     }
 
     public void testSimple() {
@@ -46,9 +47,17 @@ public class TestResetGameRequestController extends TestCase {
 
         NamedNodeMap map = response.contents.getFirstChild().getAttributes();
         String gameID=map.getNamedItem("gameId").getNodeValue();
-        xmlString = Message.requestHeader() + "<resetGameRequest gameId='"+gameID+"'/></request>";
+
+        xmlString = Message.requestHeader() + "<repositionBoardRequest gameId='"+gameID+"' name='test' " +
+                "rowChange='-1' colChange='0'/></request>";
         request = new Message(xmlString);
-        response=new ProtocolHandler(model).process(client1,request);
-        assertTrue(response.success());
+
+        Message Response = new ProtocolHandler(model).process(client1, request);
+
+        xmlString = Message.requestHeader() + "<repositionBoardRequest gameId='"+gameID+"' name='test' " +
+                "rowChange='1' colChange='0'/></request>";
+        request = new Message(xmlString);
+
+        Response = new RepositionBoardRequestController(model).process(client1, request);
     }
 }

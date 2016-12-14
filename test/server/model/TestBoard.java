@@ -33,7 +33,5 @@ public class TestBoard extends TestCase {
 
         m.resizeBoard(8);
         assertEquals(8, m.getSize());
-
-        assertEquals(m.getBoardContent().substring(0, 1), m.getCells().get(new Position(0,0)).getLetter().getCharacter());
     }
 }

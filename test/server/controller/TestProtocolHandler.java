@@ -1,22 +1,16 @@
 package server.controller;
 
-import org.w3c.dom.NamedNodeMap;
-
+import junit.framework.TestCase;
+import org.junit.Assert;
 import server.MockClient;
 import server.Server;
 import server.model.ServerModel;
 import xml.Message;
-import junit.framework.TestCase;
 
-// validate that server generates appropriate modelResponse for each modelRequest.
-public class TestClientDisconnectController extends TestCase {
 
-    /**
-     * Become a placeholder for responses sent to the (only connected) client.
-     */
-    MockClient client1;
-
+public class TestProtocolHandler extends TestCase {
     ServerModel model;
+    MockClient client1;
 
     protected void setUp() {
         // FIRST thing to do is register the protocol being used.
@@ -24,7 +18,7 @@ public class TestClientDisconnectController extends TestCase {
             fail("unable to configure protocol");
         }
 
-        client1 = new MockClient();
+        client1 = new MockClient("c1");
         Server.register("c1", client1);
         model = new ServerModel();
     }
@@ -33,7 +27,11 @@ public class TestClientDisconnectController extends TestCase {
         Server.unregister("c1");
     }
 
-    public void testSimple() {
-         new ProtocolHandler(model).logout(client1);
+    public void testHandler() {
+        ProtocolHandler ph=new ProtocolHandler(model);
+        String xmlString = Message.requestHeader() + "<connectRequest/></request>";
+        Message request = new Message(xmlString);
+        assertNull(ph.process(client1, request));
     }
 }
+

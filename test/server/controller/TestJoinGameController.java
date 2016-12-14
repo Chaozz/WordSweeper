@@ -60,7 +60,7 @@ public class TestJoinGameController extends TestCase {
         request = new Message(xmlString);
 
         // get response after processing this request
-        Message joinClient2Response = new JoinGameRequestController(model).process(client2, request);
+        Message joinClient2Response = new ProtocolHandler(model).process(client2, request);
         Message joinClient1Response = client1.getAndRemoveMessage();
 
         // get attributes of 'boardResponse' (firstChild)

@@ -48,7 +48,7 @@ public class TestLockGameRequestController extends TestCase {
         String gameID=map.getNamedItem("gameId").getNodeValue();
         xmlString = Message.requestHeader() + "<lockGameRequest gameId='"+gameID+"'/></request>";
         request = new Message(xmlString);
-        response=new LockGameRequestController(model).process(client1,request);
+        response=new ProtocolHandler(model).process(client1,request);
         assertTrue(response.success());
     }
 }

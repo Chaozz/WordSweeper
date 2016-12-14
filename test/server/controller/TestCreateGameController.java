@@ -40,7 +40,7 @@ public class TestCreateGameController extends TestCase {
         Message request = new Message(xmlString);
 
         // get response after processing this request
-        Message response = new CreateGameRequestController(model).process(client1, request);
+        Message response = new ProtocolHandler(model).process(client1, request);
 
         // make sure model is well-represented
         assertTrue(response.success());

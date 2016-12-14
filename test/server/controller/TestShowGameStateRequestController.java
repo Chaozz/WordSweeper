@@ -50,7 +50,7 @@ public class TestShowGameStateRequestController extends TestCase {
 
         xmlString = Message.requestHeader() + "<showGameStateRequest gameId='"+gameID+"'/></request>";
         request = new Message(xmlString);
-        response=new ShowGameStateRequestController(model).process(client1,request);
+        response=new ProtocolHandler(model).process(client1,request);
         assertTrue(response.success());
 
     }
