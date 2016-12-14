@@ -49,7 +49,7 @@ public class TestListGamesRequestController extends TestCase {
         String gameID=map.getNamedItem("gameId").getNodeValue();
         xmlString = Message.requestHeader() + "<listGamesRequest/></request>";
         request = new Message(xmlString);
-        response=new ListGamesRequestController(model).process(client1,request);
+        response=new ProtocolHandler(model).process(client1,request);
         assertTrue(response.success());
 
     }

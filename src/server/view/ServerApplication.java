@@ -91,7 +91,7 @@ public class ServerApplication extends JFrame {
                 int row = briefTable.getSelectedRow();
                 if (row != -1) {
                     String gameId = (String) briefTable.getValueAt(row, 0);
-                    if (selectedGame == null || gameId != selectedGame.getGameID())
+                    if (selectedGame == null || !gameId.equals(selectedGame.getGameID()))
                         selectedGame = model.getGame(gameId);
                     players = selectedGame.getPlayers();
                     updateBoardTable();
@@ -144,8 +144,8 @@ public class ServerApplication extends JFrame {
         int playerNum = players.size();
         int[][] pos = new int[playerNum][2];
         for (int i = 0; i < playerNum; i++) {
-            pos[i][0] = players.get(i).getOrigin().getRow();
-            pos[i][1] = players.get(i).getOrigin().getCol();
+            pos[i][0] = players.get(i).getOrigin().getCol();
+            pos[i][1] = players.get(i).getOrigin().getRow();
         }
         int[][] colorBoard = new int[size][size];
         for (int i = 0; i < size; i++) {
@@ -158,10 +158,8 @@ public class ServerApplication extends JFrame {
             int col = pos[i][0], row = pos[i][1];
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
-                    colorBoard[col][row] += 1;
-//                    col++;
+                    colorBoard[col+j][row+k] += 16;
                 }
-//                row++;
             }
         }
 
@@ -172,13 +170,8 @@ public class ServerApplication extends JFrame {
                                                                    column) {
                 Component c = super.getTableCellRendererComponent(
                         table, value, isSelected, hasFocus, row, column);
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
-                        int red = 255 - 15 * colorBoard[j][i], green = 255 - 9 * colorBoard[j][i], blue = 255;
-                        c.setBackground(new java.awt.Color(red, green, blue));
-                    }
-
-                }
+                int red = 255 - 5* colorBoard[column][row], green = 255 - 5* colorBoard[column][row], blue = 255;
+                c.setBackground(new java.awt.Color(red, green, blue));
                 return super.getTableCellRendererComponent(table, value,
                         isSelected, hasFocus, row, column);
             }
@@ -188,9 +181,7 @@ public class ServerApplication extends JFrame {
             tc = boardTable.getColumnModel().getColumn(i);
             tc.setCellRenderer(cr);
         }
-
     }
-
 
     private void updateGameStateTable() {
         int num = players.size();
@@ -202,9 +193,5 @@ public class ServerApplication extends JFrame {
             gameStateData[i][2] = p.getScore();
         }
         gameStateModel.setDataVector(gameStateData, gameStateHeader);
-
-
     }
-
-
 }
