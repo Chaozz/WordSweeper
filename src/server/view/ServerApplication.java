@@ -38,6 +38,7 @@ public class ServerApplication extends JFrame {
     private DefaultTableModel briefModel;
     private DefaultTableModel boardModel;
     private DefaultTableModel gameStateModel;
+    private DefaultTableCellRenderer cr;
 
 
     public ServerApplication(ServerModel model) {
@@ -162,7 +163,7 @@ public class ServerApplication extends JFrame {
             }
         }
 
-        DefaultTableCellRenderer cr = new DefaultTableCellRenderer() {
+        cr = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
                                                            boolean isSelected, boolean hasFocus, int row, int
@@ -175,21 +176,10 @@ public class ServerApplication extends JFrame {
                         isSelected, hasFocus, row, column);
             }
         };
-        DefaultTableCellRenderer multiCr = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean
-                    hasFocus, int row, int column) {
-                if (row == multi.getCol())
-                    setBackground(Color.GREEN);
-                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            }
-        };
         TableColumn tc = null;
         for (int i = 0; i < size; i++) {
-            if (multi.getRow() == i) {
-                tc = boardTable.getColumnModel().getColumn(i);
-                tc.setCellRenderer(multiCr);
-            }
+            tc = boardTable.getColumnModel().getColumn(i);
+            tc.setCellRenderer(cr);
         }
     }
 
