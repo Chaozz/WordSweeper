@@ -153,7 +153,7 @@ public class ServerApplication extends JFrame {
                 colorBoard[i][j] = 0;
             }
         }
-
+        colorBoard[multi.getCol()][multi.getRow()]+=6;
         for (int i = 0; i < playerNum; i++) {
             int col = pos[i][0], row = pos[i][1];
             for (int j = 0; j < 4; j++) {
