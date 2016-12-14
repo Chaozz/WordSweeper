@@ -27,7 +27,10 @@ public class SharedSpaceHandler {
                 }
             }
         }
-        return sharedNum.get(position);
+        if(sharedNum.containsKey(position)) {
+            return sharedNum.get(position);
+        }
+        return 0;
     }
 
 }

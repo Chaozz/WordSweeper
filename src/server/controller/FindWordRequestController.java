@@ -34,20 +34,19 @@ public class FindWordRequestController implements IProtocolHandler {
         String word = map.getNamedItem("word").getNodeValue();
         Game game = model.getGame(gameId);
         if (WordTable.isWord(word)) {
-            System.out.println("isword");
             Board board = game.getBoard();
             Hashtable<Position, Cell> currentCells = board.getCells();
 
             NodeList cellSequence = findRequest.getChildNodes();
             Hashtable<Position, Cell> foundCells = new Hashtable<>();
+
             for (int i = 0; i < cellSequence.getLength(); i++) {
                 Node node = cellSequence.item(i);
                 NamedNodeMap cellMap = node.getAttributes();
                 String[] commaSeparatedPair = cellMap.getNamedItem("position").getNodeValue().split(",");
                 Position position = new Position(Integer.valueOf(commaSeparatedPair[0]), Integer.valueOf
                         (commaSeparatedPair[1]));
-                System.out.println(position.getRow()+','+position.getCol());
-                System.out.println(currentCells.get(position).getLetter());
+
                 foundCells.put(position, currentCells.get(position));
             }
 
@@ -55,8 +54,7 @@ public class FindWordRequestController implements IProtocolHandler {
             boolean isMultiplierUsed = false;
             int N = 0;
             for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
-                System.out.println(entry.getKey().getCol());
-                System.out.println(entry.getKey().getRow());
+
                 int M = SharedSpaceHandler.numOfSharedPlayers(game, entry.getKey());
                 if (entry.getValue().isMultiplier()) {
                     isMultiplierUsed = true;
@@ -67,6 +65,7 @@ public class FindWordRequestController implements IProtocolHandler {
                 N++;
             }
             score = (int) (score * Math.pow(2, N));
+
             Player player = game.getPlayer(pname);
             player.setScore(score+player.getScore());
 
@@ -82,7 +81,6 @@ public class FindWordRequestController implements IProtocolHandler {
             }
             return new Message(xmlString);
         } else {
-            System.out.println("not word");
             String xmlString = Message.responseHeader(request.id(), "Wrong Word!") + "<findWordResponse gameId = " +
                     "'" + gameId + "' name='" + pname + "' score = '0' /> </response>";
             String boardResponseXml = BoardResponseHandler.getBoardResponse(game, gameId, request.id());
