@@ -1,3 +1,4 @@
+
 client
 client.controller
 client.model
@@ -5,5 +6,6 @@ client.view
 server
 server.controller
 server.model
+server.view
 util
 xml
