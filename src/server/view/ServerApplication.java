@@ -1,6 +1,7 @@
 package server.view;
 
 import server.model.Game;
+import server.model.Player;
 import server.model.ServerModel;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ServerApplication extends JFrame {
     private ServerModel model;
     private ArrayList<Game> games;
+    private Game selectedGame;
     private JPanel contentPane;
     private JTable briefTable;
     private JTable gameStateTable;
@@ -69,20 +71,20 @@ public class ServerApplication extends JFrame {
         updateListBtn.setBounds(5, 5, 150, 20);
         updateGameBtn = new JButton("UpdateBoard");
         updateGameBtn.setBounds(200, 5, 100, 20);
-        briefModel = new DefaultTableModel(briefHeader,0);
-        gameStateModel = new DefaultTableModel(gameStateHeader,0);
+        briefModel = new DefaultTableModel(briefHeader, 0);
+        gameStateModel = new DefaultTableModel(gameStateHeader, 0);
         briefTable = new JTable(briefModel);
         boardTable = new JTable();
         gameStateTable = new JTable(gameStateModel);
         scrollPane_gameBrief = new JScrollPane(briefTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane_gameBrief.setBounds(5,50,180,280);
+        scrollPane_gameBrief.setBounds(5, 50, 180, 280);
         scrollPane_boardState = new JScrollPane(boardTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane
                 .HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane_boardState.setBounds(200,50,300,280);
+        scrollPane_boardState.setBounds(200, 50, 300, 280);
         scrollPane_gameState = new JScrollPane(gameStateTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane_gameState.setBounds(510,50,300,280);
+        scrollPane_gameState.setBounds(510, 50, 300, 280);
         contentPane.add(updateListBtn);
         contentPane.add(updateGameBtn);
         contentPane.add(scrollPane_boardState);
@@ -99,21 +101,28 @@ public class ServerApplication extends JFrame {
         updateGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateBoardTable();
-                updateGameStateTable();
+                int row = briefTable.getSelectedRow();
+                if (row != -1) {
+                    String gameId = (String) briefTable.getValueAt(row, 0);
+                    if (selectedGame == null || gameId != selectedGame.getGameID())
+                        selectedGame = model.getGame(gameId);
+                    updateBoardTable();
+                    updateGameStateTable();
+                }
             }
         });
 
 
         games = model.getGames();
-        if (games == null||games.size()==0) {
-        }else {
+        if (games == null || games.size() == 0) {
+        } else {
             updateGameBriefTable();
             updateBoardTable();
             updateGameStateTable();
         }
 
     }
+
     private void updateGameBriefTable() {
         games = model.getGames();
         int num = games.size();
@@ -123,7 +132,7 @@ public class ServerApplication extends JFrame {
             briefData[i][0] = g.getGameID();
             briefData[i][1] = g.getPlayers().size();
         }
-        briefModel.setDataVector(briefData,briefHeader);
+        briefModel.setDataVector(briefData, briefHeader);
         briefTable.setModel(briefModel);
 
     }
@@ -134,6 +143,17 @@ public class ServerApplication extends JFrame {
 
 
     private void updateGameStateTable() {
+        ArrayList<Player> players = selectedGame.getPlayers();
+        int num = players.size();
+        Object[][] gameStateData = new Object[num][3];
+        for (int i = 0; i < num; i++) {
+            Player p = players.get(i);
+            gameStateData[i][0] = p.getName();
+            gameStateData[i][1] = p.getOrigin().toString();
+            gameStateData[i][2] = p.getScore();
+        }
+        gameStateModel.setDataVector(gameStateData, gameStateHeader);
+
 
     }
 
