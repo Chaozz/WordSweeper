@@ -11,7 +11,7 @@ import server.model.ServerModel;
 import xml.Message;
 
 /**
- *  Controller on server to handle the exit game request and return exit response to client.
+ * Controller on server to handle the exit game request and return exit response to client.
  */
 public class ExitGameController implements IProtocolHandler {
     ServerModel model;

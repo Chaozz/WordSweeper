@@ -32,7 +32,7 @@ public class JoinGameRequestController implements IProtocolHandler {
 
         // If fail to join the Game
         if (!model.joinGame(pname, client, gameId)) {
-            String xmlString = Message.responseHeader(request.id(), "Game is locked!") +
+            String xmlString = Message.responseHeader(request.id(), "Game is locked! or Player Name is duplicate!") +
                     "<joinGameResponse gameId='" + gameId + "'/>" +
                     "</response>";
             return new Message(xmlString);

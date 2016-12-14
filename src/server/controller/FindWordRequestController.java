@@ -68,7 +68,7 @@ public class FindWordRequestController implements IProtocolHandler {
             score = (int) (score * Math.pow(2, N));
 
             Player player = game.getPlayer(pname);
-            player.setScore(score+player.getScore());
+            player.setScore(score + player.getScore());
 
             board.changeBoardAfterSweeper(foundCells);
             if (isMultiplierUsed) board.resetMultiplier();

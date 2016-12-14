@@ -11,7 +11,7 @@ import xml.Message;
 /**
  * Controller on server to handle the show game state request of admin client and return board response to client.
  */
-public class ShowGameStateRequestController implements IProtocolHandler{
+public class ShowGameStateRequestController implements IProtocolHandler {
     ServerModel model;
 
     public ShowGameStateRequestController(ServerModel model) {

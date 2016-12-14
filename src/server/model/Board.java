@@ -118,6 +118,11 @@ public class Board {
         return localContent.toString();
     }
 
+    /**
+     * Get the board content string for board response
+     *
+     * @return string of board content
+     */
     public String getBoardContent() {
         return content.toString();
     }
@@ -131,14 +136,19 @@ public class Board {
         return new Cell(new Letter(rAlphabet, point), false);
     }
 
+    /**
+     * Change the cells in board after someone score
+     *
+     * @param foundCells the sweeper cells
+     */
     public void changeBoardAfterSweeper(Hashtable<Position, Cell> foundCells) {
         for (Map.Entry<Position, Cell> entry : foundCells.entrySet()) {
             Position p = entry.getKey();
             for (int i = p.getRow() + 1; i < size; i++) {
                 Cell c = cells.get(new Position(p.getCol(), i));
-                cells.put(new Position(p.getCol(), i-1 ), c);
+                cells.put(new Position(p.getCol(), i - 1), c);
             }
-            cells.put(new Position(p.getCol(), size-1), newCell());
+            cells.put(new Position(p.getCol(), size - 1), newCell());
         }
     }
 }

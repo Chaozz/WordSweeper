@@ -43,6 +43,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return (col+1) + " ," + (row+1);
+        return (col + 1) + " ," + (row + 1);
     }
 }

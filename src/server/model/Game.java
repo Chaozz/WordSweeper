@@ -19,7 +19,7 @@ public class Game {
     String managingPlayerName;
 
     String managingPlayerID;
-    HashMap<String,String> clients = new HashMap<>();
+    HashMap<String, String> clients = new HashMap<>();
 
     /**
      * constructor
@@ -45,10 +45,10 @@ public class Game {
             managingPlayerID = c.id();
         }
         players.add(player);
-        addClient(player.getName(),c);
+        addClient(player.getName(), c);
         //if player size*16 >=letters , increase the board
-        if(players.size()*16>=board.getSize()*board.getSize()){
-            board.resizeBoard(board.getSize()+1);
+        if (players.size() * 16 >= board.getSize() * board.getSize()) {
+            board.resizeBoard(board.getSize() + 1);
         }
         return true;
     }
@@ -67,10 +67,10 @@ public class Game {
                 it.remove();
                 if (players.size() == 0) {
                     managingPlayerName = null;
-                    managingPlayerID=null;
+                    managingPlayerID = null;
                 } else if (playerName.equals(managingPlayerName)) {
                     managingPlayerName = players.get(0).getName();
-                    managingPlayerID=clients.get(players.get(0).getName());
+                    managingPlayerID = clients.get(players.get(0).getName());
                 }
                 removeClient(player.getName());
                 return true;
@@ -123,7 +123,7 @@ public class Game {
     }
 
     public void addClient(String playerName, ClientState c) {
-        clients.put(playerName,c.id());
+        clients.put(playerName, c.id());
     }
 
     public void removeClient(String playerName) {

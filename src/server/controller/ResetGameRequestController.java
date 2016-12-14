@@ -26,7 +26,7 @@ public class ResetGameRequestController implements IProtocolHandler {
         NamedNodeMap map = resetGameRequest.getAttributes();
         String gameId = map.getNamedItem("gameId").getNodeValue();
         Game game = model.getGame(gameId);
-        if(!game.getManagingPlayerID().equals(state.id())){
+        if (!game.getManagingPlayerID().equals(state.id())) {
             return null;
         }
         game.resetGame();
@@ -36,7 +36,7 @@ public class ResetGameRequestController implements IProtocolHandler {
         String otherPlayers = "";
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            otherPlayers += "<player name='"+p.getName() + "' score='" + p.getScore() + "' position='" + p.getOrigin()
+            otherPlayers += "<player name='" + p.getName() + "' score='" + p.getScore() + "' position='" + p.getOrigin()
                     .getCol() + "," + p.getOrigin().getRow() + "' board='" + board.getLocalBoardContent(p.getOrigin()
             ) + "'/>";
         }

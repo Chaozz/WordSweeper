@@ -28,10 +28,10 @@ public class ServerModel {
         Player creator = new Player(playerName);
         String gameID;
         if (isEmpty) {
-            gameID = UUID.randomUUID().toString().substring(0,4);
+            gameID = UUID.randomUUID().toString().substring(0, 4);
             isEmpty = false;
         } else {
-            gameID = UUID.randomUUID().toString().substring(0,4);
+            gameID = UUID.randomUUID().toString().substring(0, 4);
         }
         Game game = new Game(gameID);
         game.addPlayer(creator, c);
@@ -51,6 +51,11 @@ public class ServerModel {
         Game game = getGame(gameID);
         if (game == null) return false;
         if (game.isLocked()) return false;
+        for (Player p : game.getPlayers()) {
+            if (p.getName().equals(player.getName())) {
+                return false;
+            }
+        }
         game.addPlayer(player, c);
         return true;
     }

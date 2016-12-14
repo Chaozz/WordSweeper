@@ -14,15 +14,15 @@ import xml.Message;
 public class LockGameRequestController {
     ServerModel model;
 
-    public LockGameRequestController(ServerModel model){
-        this.model=model;
+    public LockGameRequestController(ServerModel model) {
+        this.model = model;
     }
 
     public Message process(ClientState client, Message request) {
         Node createRequest = request.contents.getFirstChild();
         NamedNodeMap map = createRequest.getAttributes();
         String gameId = map.getNamedItem("gameId").getNodeValue();
-        if(!model.getGame(gameId).getManagingPlayerID().equals(client.id())){
+        if (!model.getGame(gameId).getManagingPlayerID().equals(client.id())) {
             return null;
         }
         model.getGame(gameId).setLocked(true);
