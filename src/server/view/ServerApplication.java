@@ -1,17 +1,18 @@
 package server.view;
 
-import server.model.Game;
-import server.model.Player;
-import server.model.ServerModel;
+import server.model.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Font;
+import javax.swing.table.TableColumn;
+import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 
 /**
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 public class ServerApplication extends JFrame {
     private ServerModel model;
     private ArrayList<Game> games;
+    private Board board;
     private Game selectedGame;
+    private ArrayList<Player> players;
     private JPanel contentPane;
     private JTable briefTable;
     private JTable gameStateTable;
@@ -33,28 +36,11 @@ public class ServerApplication extends JFrame {
     private String[] briefHeader = {"Game ID", "PlayerNum"};
     private String[] gameStateHeader = {"Player", "Position", "Score"};
     private DefaultTableModel briefModel;
+    private DefaultTableModel boardModel;
     private DefaultTableModel gameStateModel;
+    private DefaultTableCellRenderer cr;
 
 
-    /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    ServerApplication frame = new ServerApplication();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-    /**
-     * Create the frame.
-     */
     public ServerApplication(ServerModel model) {
         this.model = model;
         setTitle("WordSweeper Server Client");
@@ -64,7 +50,6 @@ public class ServerApplication extends JFrame {
         setResizable(false);
 
         contentPane = new JPanel();
-//        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         setContentPane(contentPane);
         updateListBtn = new JButton("UpdateGameList");
@@ -74,7 +59,8 @@ public class ServerApplication extends JFrame {
         briefModel = new DefaultTableModel(briefHeader, 0);
         gameStateModel = new DefaultTableModel(gameStateHeader, 0);
         briefTable = new JTable(briefModel);
-        boardTable = new JTable();
+        boardModel = new DefaultTableModel();
+        boardTable = new JTable(boardModel);
         gameStateTable = new JTable(gameStateModel);
         scrollPane_gameBrief = new JScrollPane(briefTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -85,6 +71,7 @@ public class ServerApplication extends JFrame {
         scrollPane_gameState = new JScrollPane(gameStateTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane_gameState.setBounds(510, 50, 300, 280);
+
         contentPane.add(updateListBtn);
         contentPane.add(updateGameBtn);
         contentPane.add(scrollPane_boardState);
@@ -106,6 +93,7 @@ public class ServerApplication extends JFrame {
                     String gameId = (String) briefTable.getValueAt(row, 0);
                     if (selectedGame == null || gameId != selectedGame.getGameID())
                         selectedGame = model.getGame(gameId);
+                    players = selectedGame.getPlayers();
                     updateBoardTable();
                     updateGameStateTable();
                 }
@@ -133,17 +121,78 @@ public class ServerApplication extends JFrame {
             briefData[i][1] = g.getPlayers().size();
         }
         briefModel.setDataVector(briefData, briefHeader);
-        briefTable.setModel(briefModel);
 
     }
 
     private void updateBoardTable() {
+        board = selectedGame.getBoard();
+        int size = board.getSize();
+        String[] boardHeader = new String[size];
+        for (int i = 0; i < size; i++) {
+            boardHeader[i] = "C" + i;
+        }
+        Object[][] boardData = new Object[size][size];
+        Hashtable<Position, Cell> cells = board.getCells();
+        Position multi = board.getMultiplier();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                boardData[j][i] = cells.get(new Position(i, j)).getLetter().getCharacter();
+            }
+        }
+        boardModel.setDataVector(boardData, boardHeader);
+
+        int playerNum = players.size();
+        int[][] pos = new int[playerNum][2];
+        for (int i = 0; i < playerNum; i++) {
+            pos[i][0] = players.get(i).getOrigin().getRow();
+            pos[i][1] = players.get(i).getOrigin().getCol();
+        }
+        int[][] colorBoard = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                colorBoard[i][j] = 0;
+            }
+        }
+
+        for (int i = 0; i < playerNum; i++) {
+            int col = pos[i][0], row = pos[i][1];
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    colorBoard[col][row] += 1;
+//                    col++;
+                }
+//                row++;
+            }
+        }
+
+        cr = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int
+                                                                   column) {
+                Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        int red = 255 - 15 * colorBoard[j][i], green = 255 - 9 * colorBoard[j][i], blue = 255;
+                        c.setBackground(new java.awt.Color(red, green, blue));
+                    }
+
+                }
+                return super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+            }
+        };
+        TableColumn tc = null;
+        for (int i = 0; i < size; i++) {
+            tc = boardTable.getColumnModel().getColumn(i);
+            tc.setCellRenderer(cr);
+        }
 
     }
 
 
     private void updateGameStateTable() {
-        ArrayList<Player> players = selectedGame.getPlayers();
         int num = players.size();
         Object[][] gameStateData = new Object[num][3];
         for (int i = 0; i < num; i++) {
