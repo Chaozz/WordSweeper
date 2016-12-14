@@ -3,6 +3,7 @@ import java.io.*;
 
 import server.controller.ProtocolHandler;
 import server.model.ServerModel;
+import server.view.ServerApplication;
 import xml.Message;
 
 /** Code to launch Server  from the command line. */
@@ -24,6 +25,8 @@ public class ServerLauncher {
 
 		try {
 			server.bind();
+            ServerApplication application = new ServerApplication(serverModel);
+            application.setVisible(true);
 		} catch (IOException ioe) {
 			System.err.println("Unable to launch server:" + ioe.getMessage());
 			System.exit(-1);
