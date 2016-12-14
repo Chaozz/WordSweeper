@@ -11,7 +11,7 @@ import xml.Message;
 import java.util.List;
 
 /**
- * Created by tianhao on 11/14/16.
+ * Controller on server to handle the reset game request and return reset game response and board response to client.
  */
 public class ResetGameRequestController implements IProtocolHandler {
     ServerModel model;

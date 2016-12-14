@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+/**
+ * Provide method to judge if the word is valid.
+ */
 public class WordTable {
 	static Hashtable<String,Boolean> table;
 	

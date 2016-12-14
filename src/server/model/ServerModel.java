@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.UUID;
 
 /**
- * HACK: Replace with actual functionality!
+ * Server Model maintain all games on the server.
  */
 
 public class ServerModel {

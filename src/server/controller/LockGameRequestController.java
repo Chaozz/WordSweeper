@@ -9,8 +9,7 @@ import server.model.*;
 import xml.Message;
 
 /**
- * Controller on server to package up the current state of the model
- * as an updateResponse message and send it back to the client.
+ * Controller on server to handle the lock game request and return lock game response to client.
  */
 public class LockGameRequestController {
     ServerModel model;

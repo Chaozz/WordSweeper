@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Method to compute how many players share the cell.
  */
 public class SharedSpaceHandler {
     public static int numOfSharedPlayers(Game game, Position position) {

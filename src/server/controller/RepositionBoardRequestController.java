@@ -12,7 +12,7 @@ import server.model.ServerModel;
 import xml.Message;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Controller on server to handle the reposition board request and return board response to client.
  */
 public class RepositionBoardRequestController implements IProtocolHandler {
     ServerModel model;

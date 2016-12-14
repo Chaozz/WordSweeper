@@ -9,7 +9,7 @@ import server.model.ServerModel;
 import xml.Message;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Controller on server to handle the show game state request of admin client and return board response to client.
  */
 public class ShowGameStateRequestController implements IProtocolHandler{
     ServerModel model;

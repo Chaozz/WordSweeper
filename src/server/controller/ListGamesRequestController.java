@@ -9,7 +9,7 @@ import xml.Message;
 import java.util.ArrayList;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Controller on server to handle the list game request of admin client and return list game response to client.
  */
 public class ListGamesRequestController implements IProtocolHandler {
     ServerModel model;
