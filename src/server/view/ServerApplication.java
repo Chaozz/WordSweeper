@@ -22,8 +22,8 @@ public class ServerApplication extends JFrame {
     private ServerModel model;
     private ArrayList<Game> games;
     private Board board;
-    private Game selectedGame;
-    private ArrayList<Player> players;
+    public Game selectedGame;
+    public ArrayList<Player> players;
     private JPanel contentPane;
     private JTable briefTable;
     private JTable gameStateTable;
@@ -111,7 +111,7 @@ public class ServerApplication extends JFrame {
 
     }
 
-    private void updateGameBriefTable() {
+    public void updateGameBriefTable() {
         games = model.getGames();
         int num = games.size();
         Object[][] briefData = new Object[num][2];
@@ -124,7 +124,7 @@ public class ServerApplication extends JFrame {
 
     }
 
-    private void updateBoardTable() {
+    public void updateBoardTable() {
         board = selectedGame.getBoard();
         int size = board.getSize();
         String[] boardHeader = new String[size];
@@ -183,7 +183,7 @@ public class ServerApplication extends JFrame {
         }
     }
 
-    private void updateGameStateTable() {
+    public void updateGameStateTable() {
         int num = players.size();
         Object[][] gameStateData = new Object[num][3];
         for (int i = 0; i < num; i++) {
