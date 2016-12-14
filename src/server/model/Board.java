@@ -140,7 +140,5 @@ public class Board {
             }
             cells.put(new Position(p.getCol(), size-1), newCell());
         }
-
-
     }
 }
