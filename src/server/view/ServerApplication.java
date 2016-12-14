@@ -34,7 +34,7 @@ public class ServerApplication extends JFrame {
     private JButton updateListBtn;
     private JButton updateGameBtn;
     private String[] briefHeader = {"Game ID", "PlayerNum"};
-    private String[] gameStateHeader = {"Player", "Position", "Score"};
+    private String[] gameStateHeader = {"Player", "Position", "Score","M"};
     private DefaultTableModel briefModel;
     private DefaultTableModel boardModel;
     private DefaultTableModel gameStateModel;
@@ -194,12 +194,19 @@ public class ServerApplication extends JFrame {
 
     public void updateGameStateTable() {
         int num = players.size();
-        Object[][] gameStateData = new Object[num][3];
+        Object[][] gameStateData = new Object[num][4];
         for (int i = 0; i < num; i++) {
             Player p = players.get(i);
             gameStateData[i][0] = p.getName();
             gameStateData[i][1] = p.getOrigin().toString();
             gameStateData[i][2] = p.getScore();
+            String s=selectedGame.getManagingPlayerName();
+            if(gameStateData[i][0].equals(s)){
+                gameStateData[i][3]="*";
+            }
+            else{
+                gameStateData[i][3]="";
+            }
         }
         gameStateModel.setDataVector(gameStateData, gameStateHeader);
     }
