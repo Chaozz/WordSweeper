@@ -3,7 +3,7 @@ package util;
 import java.util.Hashtable;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Table of points of letters. Using singleton pattern.
  */
 public class LetterPoints {
     private static Hashtable<Character,Integer> pointTable = new Hashtable<>();

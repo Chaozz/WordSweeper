@@ -7,8 +7,7 @@ import server.model.ServerModel;
 import xml.Message;
 
 /**
- * Sample implementation of a protocol handler to respond to messages received from clients.
- * You should follow this template when designing YOUR protocol handler.
+ * Implementation of a protocol handler to respond to messages received from clients.
  * <p>
  * To avoid issues with multiple clients submitting requests concurrently,
  * notice that the {@link #process(ClientState, Message)} method is synchronized.

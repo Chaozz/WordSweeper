@@ -11,8 +11,8 @@ import xml.Message;
 import java.util.List;
 
 /**
- * Controller on server to package up the current state of the model
- * as an updateResponse message and send it back to the client.
+ * Controller on server to handle the join game request and return board response to client.
+ * Join game can be success or fail.
  */
 public class JoinGameRequestController implements IProtocolHandler {
 

@@ -16,7 +16,7 @@ import java.util.Hashtable;
 
 
 /**
- * Created by lyu on 2016/12/10.
+ * Admin client of server. Using PULL model.
  */
 public class ServerApplication extends JFrame {
     private ServerModel model;

@@ -9,7 +9,7 @@ import xml.Message;
 import java.util.List;
 
 /**
- * Created by tianhao on 12/9/16.
+ * Given Game object, GameID, RequestID, return boardResponse String
  */
 public class BoardResponseHandler {
     public static String getBoardResponse(Game game, String gameId, String requestId) {

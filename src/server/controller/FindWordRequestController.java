@@ -16,7 +16,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by tianhao on 11/14/16.
+ * Controller on server to handle the find word request and return find word response to client.
+ * It computes the score and make change to game.
  */
 public class FindWordRequestController implements IProtocolHandler {
     ServerModel model;
